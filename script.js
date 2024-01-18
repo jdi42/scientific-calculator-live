@@ -12,10 +12,18 @@ let currentValue = "";
 function evaluateResult() {
     console.log("currentValue:", currentValue);
 
-    const convertedValue=currentValue.  // THIS ONLY REPLACES THE FIRST INSTANCE OF THE SYMBOL
+    const convertedValue=currentValue
     .replace("×","*")
     .replace("÷","/")
-    .replace("%","*0.01");
+    .replace("%","*0.01")
+    .replace("sin","Math.sin")
+    .replace("ln","Math.log")
+    .replace("con","Math.cos")
+    .replace("π","Math.PI")
+    .replace("log","Math.log10")
+    .replace("e","Math.E")
+    .replace("tan","Math.tan")
+    .replace("√","Math.sqrt");
 
     console.log("convertedValue",convertedValue);
     const result = eval(convertedValue);
@@ -27,15 +35,23 @@ for (let i = 0; i < buttons.length; i++) {
     button.addEventListener('click', function () {
         const value = button.innerText;
 
-        if (value == "AC") {
-            currentValue = "";
-        } else if (value == "=") {
-            evaluateResult();
-        }
-        else {
-            currentValue += value;
-        }
-        display.value = currentValue;
+try{
+    if (value == "AC") {
+        currentValue = "";
+    } else if (value == "=") {
+        evaluateResult();
+    }
+    else {
+        currentValue += value;
+    }
+    display.value = currentValue; 
+} catch(error){
+    console.error(error);
+    currentValue="ERROR";
+    display.value = currentValue;
+}
+
+
 
     })
 
